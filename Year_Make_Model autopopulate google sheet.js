@@ -7,7 +7,6 @@
 // Drag and drop until desired cell
 
 
-
 var REFRESH_INTERVAL_MINUTES = 2;
 
 

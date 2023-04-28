@@ -1,20 +1,83 @@
 
 
-Step 1 Create or go to the google sheet that you would like to use. 
+XXXXXXXXXXX Step 1 Create or go to the google sheet that you would like to use. XXXXXXXXXXXX
 
-Step 2 Go to extensions and press on Apps Script 
+XXXXXXXXXXX Step 2 Go to extensions and press on Apps Script XXXXXXXXXXX
 
 ![Screenshot 2023-04-27 at 7 26 17 PM](https://user-images.githubusercontent.com/81628855/235012361-c75d149e-f67c-47fa-875f-4daa8308bd9b.png)
 
 
 
-Step 3 
+XXXXXXXXXX Step 3 XXXXXXXXXX
 
 Copy and paste this.....
 
 
 
 
+function vinMakeInfo(vinNumber)
+{
+  if ((vinNumber) && (vinNumber != ""))
+  {
+    try
+    {
+      vin = encodeURI(vinNumber)
+      var url = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/"+vin+"?format=json"
+      var response = UrlFetchApp.fetch(url);
+      var w = JSON.parse(response.getContentText());
+      return w.Results[0].Make;
+    }
+    catch (e)
+    {      
+    }
+  }
+  return ""
+}
+
+
+function vinModelInfo(vinNumber)
+{
+  if ((vinNumber) && (vinNumber != ""))
+  {
+    try
+    {
+      vin = encodeURI(vinNumber)
+      var url = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/"+vin+"?format=json"
+      var response = UrlFetchApp.fetch(url);
+      var w = JSON.parse(response.getContentText());
+      return w.Results[0].Model;
+    }
+    catch (e)
+    {      
+    }
+  }
+  return ""
+}
+
+
+function vinModelYearInfo(vinNumber)
+{
+  if ((vinNumber) && (vinNumber != ""))
+  {
+    try
+    {
+      vin = encodeURI(vinNumber)
+      var url = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/"+vin+"?format=json"
+      var response = UrlFetchApp.fetch(url);
+      var w = JSON.parse(response.getContentText());
+      return w.Results[0].ModelYear;
+    }
+    catch (e)
+    {      
+    }
+  }
+  return ""
+}
+
+It should look like this......
+
+
+![Screenshot 2023-04-27 at 8 08 53 PM](https://user-images.githubusercontent.com/81628855/235015882-279c0667-c212-468b-9570-a714d57b7649.png)
 
 
 
@@ -22,6 +85,12 @@ Copy and paste this.....
 
 
 
+XXXXXXXXXX Step 4 XXXXXXXXXX
+Save project 
+Then press run. 
+Grant access.
+
+![Screenshot 2023-04-27 at 8 19 11 PM](https://user-images.githubusercontent.com/81628855/235023526-744796ef-bbad-41a9-b356-e876fc60cea1.png)
 
 
 

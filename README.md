@@ -10,6 +10,9 @@ Step 2 Go to extensions and press on Apps Script
 
 Step 3 
 
+Copy and paste this.....
+
+
 
 
 

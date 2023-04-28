@@ -14,126 +14,44 @@ Copy and paste this.....
 
 var REFRESH_INTERVAL_MINUTES = 2;
 
+function vinMakeInfo(vinNumber) { if ((vinNumber) && (vinNumber != "")) { try { vin = encodeURI(vinNumber) var url = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/"+vin+"?format=json" var response = UrlFetchApp.fetch(url); var w = JSON.parse(response.getContentText()); return w.Results[0].Make; } catch (e) {
+} } return "" }
 
-function vinMakeInfo(vinNumber)
-{
-  if ((vinNumber) && (vinNumber != ""))
+function vinModelInfo(vinNumber) { if ((vinNumber) && (vinNumber != "")) { try { vin = encodeURI(vinNumber) var url = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/"+vin+"?format=json" var response = UrlFetchApp.fetch(url); var w = JSON.parse(response.getContentText()); return w.Results[0].Model; } catch (e) {
+} } return "" }
+
+function vinModelYearInfo(vinNumber) { if ((vinNumber) && (vinNumber != "")) { try { vin = encodeURI(vinNumber) var url = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/"+vin+"?format=json" var response = UrlFetchApp.fetch(url); var w = JSON.parse(response.getContentText()); return w.Results[0].ModelYear; } catch (e) {
+} } return "" }
+
+function vinAuctionInfo(vinNumber) { if ((vinNumber) && (vinNumber != "")) { try { vin = encodeURI(vinNumber) var url = "https://pinpoint-us-api.cox2m.com/v1/association?siteId=lmaa&size=1000&q=" + vin var response = UrlFetchApp.fetch(url); var w = JSON.parse(response.getContentText()); var total = w.total
+
+  try
   {
-    try
-    {
-      vin = encodeURI(vinNumber)
-      var url = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/"+vin+"?format=json"
-      var response = UrlFetchApp.fetch(url);
-      var w = JSON.parse(response.getContentText());
-      return w.Results[0].Make;
-    }
-    catch (e)
-    {      
-    }
-  }
-  return ""
-}
-
-
-function vinModelInfo(vinNumber)
-{
-  if ((vinNumber) && (vinNumber != ""))
-  {
-    try
-    {
-      vin = encodeURI(vinNumber)
-      var url = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/"+vin+"?format=json"
-      var response = UrlFetchApp.fetch(url);
-      var w = JSON.parse(response.getContentText());
-      return w.Results[0].Model;
-    }
-    catch (e)
-    {      
-    }
-  }
-  return ""
-}
-
-
-function vinModelYearInfo(vinNumber)
-{
-  if ((vinNumber) && (vinNumber != ""))
-  {
-    try
-    {
-      vin = encodeURI(vinNumber)
-      var url = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/"+vin+"?format=json"
-      var response = UrlFetchApp.fetch(url);
-      var w = JSON.parse(response.getContentText());
-      return w.Results[0].ModelYear;
-    }
-    catch (e)
-    {      
-    }
-  }
-  return ""
-}
-
-
-function vinAuctionInfo(vinNumber)
-{
-  if ((vinNumber) && (vinNumber != ""))
-  {
-    try
-    {
-      vin = encodeURI(vinNumber)
-      var url = "https://pinpoint-us-api.cox2m.com/v1/association?siteId=lmaa&size=1000&q=" + vin
-      var response = UrlFetchApp.fetch(url);
-      var w = JSON.parse(response.getContentText());
-      var total = w.total
-      
-      try
-      {
-        total = parseInt(total);
-      }
-      catch (e)
-      {
-        return "Invalid count in API result";
-      }
-      
-      if(total != 0)
-      {
-        return 'At Auction';
-      }
-      else
-      {
-        return 'Waiting Arrival';
-      }
-    }
-    catch (e)
-    {
-      return "Look VIN Manually";
-    }
-  }
-  return ""
-}
-
-
-function refresh() {
-  SpreadsheetApp.getUi().alert("Refreshing auction states");
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-}
-
-
-function onOpen() {
-  try {
-    SpreadsheetApp.getUi().alert("Testing periodic update");
-    ScriptApp.newTrigger('refresh')
-        .timeBased()
-        .everyMinutes(REFRESH_INTERVAL_MINUTES)
-        .create();
-    SpreadsheetApp.getUi().alert("Addred refresh trigger for ", REFRESH_INTERVAL_MINUTES.toString() + " Minutes");
+    total = parseInt(total);
   }
   catch (e)
   {
-    SpreadsheetApp.getUi().alert(e.toString());
+    return "Invalid count in API result";
+  }
+  
+  if(total != 0)
+  {
+    return 'At Auction';
+  }
+  else
+  {
+    return 'Waiting Arrival';
   }
 }
+catch (e)
+{
+  return "Look VIN Manually";
+}
+} return "" }
+
+function refresh() { SpreadsheetApp.getUi().alert("Refreshing auction states"); var ss = SpreadsheetApp.getActiveSpreadsheet(); }
+
+function onOpen() { try { SpreadsheetApp.getUi().alert("Testing periodic update"); ScriptApp.newTrigger('refresh') .timeBased() .everyMinutes(REFRESH_INTERVAL_MINUTES) .create(); SpreadsheetApp.getUi().alert("Addred refresh trigger for ", REFRESH_INTERVAL_MINUTES.toString() + " Minutes"); } catch (e) { SpreadsheetApp.getUi().alert(e.toString()); } }
 
 
 

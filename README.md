@@ -12,7 +12,7 @@ XXXXXXXXXX Step 3 XXXXXXXXXX
 
 Copy and paste this.....
 
-var REFRESH_INTERVAL_MINUTES = 2;
+'var REFRESH_INTERVAL_MINUTES = 2;
 
 function vinMakeInfo(vinNumber) { if ((vinNumber) && (vinNumber != "")) { try { vin = encodeURI(vinNumber) var url = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/"+vin+"?format=json" var response = UrlFetchApp.fetch(url); var w = JSON.parse(response.getContentText()); return w.Results[0].Make; } catch (e) {
 } } return "" }
@@ -52,7 +52,7 @@ catch (e)
 function refresh() { SpreadsheetApp.getUi().alert("Refreshing auction states"); var ss = SpreadsheetApp.getActiveSpreadsheet(); }
 
 function onOpen() { try { SpreadsheetApp.getUi().alert("Testing periodic update"); ScriptApp.newTrigger('refresh') .timeBased() .everyMinutes(REFRESH_INTERVAL_MINUTES) .create(); SpreadsheetApp.getUi().alert("Addred refresh trigger for ", REFRESH_INTERVAL_MINUTES.toString() + " Minutes"); } catch (e) { SpreadsheetApp.getUi().alert(e.toString()); } }
-
+'
 
 
 

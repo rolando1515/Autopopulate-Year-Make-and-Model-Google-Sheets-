@@ -95,6 +95,39 @@ Grant access.
 
 
 
+XXXXXXXXXX Step 5 XXXXXXXXXX
+
+Copy and paste these functions.
+
+Year 
+=vinModelYearInfo(insert here the cell where you are going to place the VIN )
+
+
+Make 
+
+=vinMakeInfo(insert here the cell where you are going to place the VIN)
+
+
+Model 
+=vinModelInfo(=vinModelInfo(insert here the cell where you are going to place the VIN)
+
+
+
+Enjoy!!!!! 
+
+
+
+If you are still struggling just message me and I will help you out...........I got you
+
+
+
+
+
+
+
+
+
+
 
 
 
